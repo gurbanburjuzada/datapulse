@@ -1,0 +1,58 @@
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Inter:wght@300;400;500;600&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* ── Green-toned dark theme ── */
+  --bg:        #0b0f0d;
+  --surface:   #111a14;
+  --surface2:  #182110;
+  --border:    #243020;
+  --text:      #ddeedd;
+  --muted:     #5a7a60;
+  --accent:    #4ade80;       /* bright green — tabs, highlights */
+  --accent2:   #86efac;       /* lighter green for hover/secondary */
+
+  --critical:  #f87171;
+  --warning:   #fbbf24;
+  --info:      #60a5fa;
+  --success:   #4ade80;
+
+  /* severity left-border tints */
+  --critical-bg: rgba(248, 113, 113, 0.05);
+  --warning-bg:  rgba(251, 191, 36,  0.05);
+  --info-bg:     rgba(96,  165, 250, 0.05);
+}
+
+* { box-sizing: border-box; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Inter', sans-serif;
+  margin: 0;
+  min-height: 100vh;
+}
+
+/* ── Scrollbars ── */
+::-webkit-scrollbar        { width: 5px; height: 5px; }
+::-webkit-scrollbar-track  { background: var(--surface); }
+::-webkit-scrollbar-thumb  { background: var(--border); border-radius: 3px; }
+
+/* ── Subtle green grid texture on body ── */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background-image:
+    linear-gradient(var(--border) 1px, transparent 1px),
+    linear-gradient(90deg, var(--border) 1px, transparent 1px);
+  background-size: 40px 40px;
+  opacity: 0.18;
+}
+
+#root { position: relative; z-index: 1; }
