@@ -33,16 +33,13 @@ def run_schema_inspector(df: pd.DataFrame) -> SchemaResult:
         unique_count = int(series.nunique(dropna=True))
         cardinality_pct = round(unique_count / row_count * 100, 2) if row_count else 0.0
 
-        # Sample up to 5 non-null values
-        sample_vals = (
-            series.dropna()
-            .head(5)
-            .tolist()
-        )
-        # Make sure samples are JSON-serialisable
+        # Show up to 5 UNIQUE non-null values so the sample is informative.
+        # .head(5) would just show the first 5 rows which are often repetitive
+        # (e.g. "Yes, No, No, Yes, No" hides the third distinct value).
+        unique_sample = series.dropna().unique()[:5]
         sample_vals = [
-            v if isinstance(v, (int, float, str, bool)) else str(v)
-            for v in sample_vals
+            v if isinstance(v, (int, float, bool, str)) else str(v)
+            for v in unique_sample.tolist()
         ]
 
         columns.append(ColumnMeta(
